@@ -1,0 +1,23 @@
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: inventory-service
+spec:
+  accessControl:
+    defaultAction: deny
+    policies:
+      - appId: order-management
+        defaultAction: deny
+        operations:
+          - name: /inventory/check
+            httpVerb: ["POST"]
+            action: allow
+          - name: /inventory/update
+            httpVerb: ["POST"]
+            action: allow
+          - name: /inventory/check/*
+            httpVerb: ["*"]
+            action: allow
+          - name: /inventory/test-failure
+            httpVerb: ["GET"]
+            action: allow
