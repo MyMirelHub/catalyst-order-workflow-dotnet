@@ -10,6 +10,48 @@ public static class AppHostExtensions
 {
     public static readonly string ExecutingPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new("Where am I?");
 
+    public static void ConfigureForLocal(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> worker, IResourceBuilder<ProjectResource> inventoryService)
+    {
+        // Configure a cache to hold our state and workflows.
+        var cachePassword = builder.AddParameter("cache-password", "zxczxc123", secret: true);
+        var cache = builder
+                .AddValkey("cache", 6379, cachePassword)
+                .WithContainerName("catalyst-order-workflow-cache")
+                .WithDataVolume("catalyst-order-workflow-cache-data")
+            ;
+
+        worker.WaitFor(cache);
+        inventoryService.WaitFor(cache);
+
+        worker.WithDaprSidecar(new DaprSidecarOptions
+        {
+            LogLevel = "debug",
+            ResourcesPaths =
+            [
+                Path.Join(ExecutingPath, "Resources"),
+            ],
+        });
+
+        inventoryService.WithDaprSidecar(new DaprSidecarOptions
+        {
+            LogLevel = "debug",
+            ResourcesPaths =
+            [
+                Path.Join(ExecutingPath, "Resources"),
+            ],
+        });
+
+        builder
+            .AddContainer("diagrid-dashboard", "public.ecr.aws/d3f9w4q8/local-dash-temp:latest")
+            .WithContainerName("catalyst-order-workflow-diagrid-dashboard")
+            .WithBindMount(Path.Join(ExecutingPath, "Resources"), "/app/components")
+            .WithEnvironment("COMPONENT_FILE", "/app/components/inventory-store-diagrid-dashboard.yaml")
+            .WithEnvironment("APP_ID", "diagrid-dashboard")
+            .WithHttpEndpoint(targetPort: 8080)
+            .WithReference(cache)
+            ;
+    }
+
     public static void ConfigureForCatalyst(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> worker, IResourceBuilder<ProjectResource> inventoryService)
     {
         // note: To configure this project to use Catalyst, run the following commands at the root of the AppHost project:
@@ -79,47 +121,6 @@ public static class AppHostExtensions
                 ])
             .WaitFor(inventoryService)
             .WithParentRelationship(inventoryService)
-        ;
-    }
-
-    public static void ConfigureForLocal(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> worker, IResourceBuilder<ProjectResource> inventoryService)
-    {
-        // Configure a cache to hold our state and workflows.
-        var cachePassword = builder.AddParameter("cache-password", "zxczxc123", secret: true);
-        var cache = builder
-            .AddValkey("cache", 6379, cachePassword)
-            .WithContainerName("catalyst-order-workflow-cache")
-            .WithDataVolume("catalyst-order-workflow-cache-data")
-        ;
-
-        worker.WaitFor(cache);
-        inventoryService.WaitFor(cache);
-
-        worker.WithDaprSidecar(new DaprSidecarOptions
-        {
-            LogLevel = "debug",
-            ResourcesPaths =
-            [
-                Path.Join(ExecutingPath, "Resources"),
-            ],
-        });
-
-        inventoryService.WithDaprSidecar(new DaprSidecarOptions
-        {
-            LogLevel = "debug",
-            ResourcesPaths =
-            [
-                Path.Join(ExecutingPath, "Resources"),
-            ],
-        });
-
-        var diagridDashboard = builder
-            .AddContainer("diagrid-dashboard", "public.ecr.aws/d3f9w4q8/local-dash-temp:latest")
-            .WithBindMount(Path.Join(ExecutingPath, "Resources"), "/app/components")
-            .WithEnvironment("COMPONENT_FILE", "/app/components/inventory-store-diagrid-dashboard.yaml")
-            .WithEnvironment("APP_ID", "diagrid-dashboard")
-            .WithHttpEndpoint(targetPort: 8080)
-            .WithReference(cache)
         ;
     }
 }
