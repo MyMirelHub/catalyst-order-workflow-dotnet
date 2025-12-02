@@ -37,10 +37,11 @@ experience.
 
 This project uses ASP.NET Aspire to provide an easy local development experience.
 
+Take a look at the [running documentation](/running.md) for a complete guide.
+
 ## Deploying
 
-## Developing
-
+> WIP
 
 ## Business Flow
 
