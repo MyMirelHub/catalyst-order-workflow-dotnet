@@ -21,6 +21,11 @@ experience.
 
 ![Diagrid Dashboard](/diagrid-dashboard-workflow.png)
 
+An API tester is also included for the Order Manager service which can be accessed by visiting `/scalar` on the Order
+Manager service address.
+
+![Scalar](/scalar.png)
+
 ### Technologies Used
 
  - [Dapr](https://dapr.io/)
