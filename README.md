@@ -12,9 +12,9 @@ Under its default configuration the applications in this solution do not depend 
 
 The project features three main Dapr building blocks:
 
- - Workflows
- - Pub/Sub
- - Service Invocation
+ - [Workflows](https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-overview)
+ - [Pub/Sub](https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview)
+ - [Service Invocation](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview)
 
 Workflow visibility is provided by the Diagrid Dashboard, a utility container created to enhance the Dapr developer
 experience.
