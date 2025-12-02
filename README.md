@@ -35,7 +35,7 @@ experience.
 
 ## Running
 
-This project uses ASP.NET Aspire to provide an easy local development experience.
+This project uses .NET Aspire to provide an easy local development experience.
 
 Take a look at the [running documentation](/running.md) for a complete guide.
 
