@@ -19,7 +19,7 @@ The project features three main Dapr building blocks:
 Workflow visibility is provided by the Diagrid Dashboard, a utility container created to enhance the Dapr developer
 experience.
 
-![Diagrid Dashboard](/diagrid-dashbaord-workflow.png)
+![Diagrid Dashboard](/diagrid-dashboard-workflow.png)
 
 ### Technologies Used
 
