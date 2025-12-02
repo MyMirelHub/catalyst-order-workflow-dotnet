@@ -1,6 +1,6 @@
 ## Running this Project
 
-![Running](/running.webm)
+![Running](/running.webp)
 
 This solution runs via a dotnet Aspire AppHost.  Aspire takes care of launching your application and any of its
 dependencies under a single run profile.
