@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Dapr.Workflow;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Activity;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Activity;
 
 public class ProcessPaymentActivity : WorkflowActivity<PaymentRequest, PaymentResult>
 {

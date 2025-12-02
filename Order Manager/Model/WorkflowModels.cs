@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
 
 public record OrderResult(bool Success, string Message);
 

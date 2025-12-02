@@ -6,13 +6,13 @@ using Dapr.Client;
 using Dapr.Workflow;
 using Diagrid.Labs.Catalyst.OrderWorkflow.Common.Domain;
 using Diagrid.Labs.Catalyst.OrderWorkflow.Common.ServiceDefaults;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager;
 
 public static class WorkerEndpointExtensions
 {

@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Dapr.Client;
 using Dapr.Workflow;
 using Diagrid.Labs.Catalyst.OrderWorkflow.Common.ServiceDefaults;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Activity;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Activity;
 
 public class UpdateInventoryActivity(DaprClient daprClient) : WorkflowActivity<InventoryUpdateRequest, InventoryUpdateResult>
 {

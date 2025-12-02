@@ -12,14 +12,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.0" />
-        <PackageReference Include="Aspire.Hosting.Valkey" Version="13.0.0" />
-        <PackageReference Include="CommunityToolkit.Aspire.Hosting.Dapr" Version="9.9.0" />
+        <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.1" />
+        <PackageReference Include="Aspire.Hosting.Valkey" Version="13.0.1" />
+        <PackageReference Include="CommunityToolkit.Aspire.Hosting.Dapr" Version="13.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Order Manager\Order Manager.csproj" />
-        <ProjectReference Include="..\InventoryService\InventoryService.csproj" />
+        <ProjectReference Include="..\Inventory Service\Inventory Service.csproj" />
     </ItemGroup>
 
     <ItemGroup>

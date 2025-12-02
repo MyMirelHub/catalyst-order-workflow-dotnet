@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Dapr.Workflow;
 using Diagrid.Labs.Catalyst.OrderWorkflow.Common.ServiceDefaults;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Activity;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Activity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
 
 public record SearchInventoryRequest(List<InventoryItem> Items);
 

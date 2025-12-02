@@ -1,6 +1,6 @@
 using Dapr.Workflow;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
 
 public record ShowOrderResult
 {

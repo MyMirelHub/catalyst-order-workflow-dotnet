@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapr.Workflow;
 using Diagrid.Labs.Catalyst.OrderWorkflow.Common.Domain;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Activity;
-using Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model;
-using InventoryItem = Diagrid.Labs.Catalyst.OrderWorkflow.Worker.Model.InventoryItem;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Activity;
+using Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model;
+using InventoryItem = Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager.Model.InventoryItem;
 
-namespace Diagrid.Labs.Catalyst.OrderWorkflow.Worker;
+namespace Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager;
 
 public class OrderProcessingWorkflow : Workflow<OrderPayload, OrderResult>
 {
