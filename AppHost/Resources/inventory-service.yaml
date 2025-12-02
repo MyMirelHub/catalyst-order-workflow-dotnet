@@ -6,7 +6,7 @@ spec:
   accessControl:
     defaultAction: deny
     policies:
-      - appId: worker
+      - appId: order-manager
         defaultAction: deny
         operations:
           - name: /inventory/check

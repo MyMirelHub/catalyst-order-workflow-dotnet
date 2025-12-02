@@ -10,7 +10,7 @@ public static class AppHostExtensions
 {
     public static readonly string ExecutingPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new("Where am I?");
 
-    public static void ConfigureForLocal(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> worker, IResourceBuilder<ProjectResource> inventoryService)
+    public static void ConfigureForLocal(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> orderManager, IResourceBuilder<ProjectResource> inventoryService)
     {
         // Configure a cache to hold our state and workflows.
         var cachePassword = builder.AddParameter("cache-password", "zxczxc123", secret: true);
@@ -20,10 +20,10 @@ public static class AppHostExtensions
                 .WithDataVolume("catalyst-order-workflow-cache-data")
             ;
 
-        worker.WaitFor(cache);
+        orderManager.WaitFor(cache);
         inventoryService.WaitFor(cache);
 
-        worker.WithDaprSidecar(new DaprSidecarOptions
+        orderManager.WithDaprSidecar(new DaprSidecarOptions
         {
             LogLevel = "debug",
             ResourcesPaths =
@@ -42,59 +42,59 @@ public static class AppHostExtensions
         });
 
         builder
-            .AddContainer("diagrid-dashboard", "public.ecr.aws/d3f9w4q8/local-dash-temp:latest")
+            .AddContainer("diagrid-dashboard", "public.ecr.aws/diagrid-dev/diagrid-dashboard:latest")
             .WithContainerName("catalyst-order-workflow-diagrid-dashboard")
             .WithBindMount(Path.Join(ExecutingPath, "Resources"), "/app/components")
             .WithEnvironment("COMPONENT_FILE", "/app/components/inventory-store-diagrid-dashboard.yaml")
             .WithEnvironment("APP_ID", "diagrid-dashboard")
             .WithHttpEndpoint(targetPort: 8080)
             .WithReference(cache)
-            ;
+        ;
     }
 
-    public static void ConfigureForCatalyst(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> worker, IResourceBuilder<ProjectResource> inventoryService)
+    public static void ConfigureForCatalyst(this IDistributedApplicationBuilder builder, IResourceBuilder<ProjectResource> orderManager, IResourceBuilder<ProjectResource> inventoryService)
     {
         // note: To configure this project to use Catalyst, run the following commands at the root of the AppHost project:
         //
-        //     dotnet user-secrets set "WorkerCatalystApiToken" "YOUR_CATALYST_WORKER_API_TOKEN_HERE"
-        //     dotnet user-secrets set "WorkerCatalystGrpcEndpoint" "YOUR_CATALYST_WORKER_GRPC_ENDPOINT_HERE"
-        //     dotnet user-secrets set "WorkerCatalystHttpEndpoint" "YOUR_CATALYST_WORKER_HTTP_ENDPOINT_HERE"
+        //     dotnet user-secrets set "OrderManagerCatalystApiToken" "YOUR_CATALYST_ORDER_MANAGER_API_TOKEN_HERE"
+        //     dotnet user-secrets set "OrderManagerCatalystGrpcEndpoint" "YOUR_CATALYST_ORDER_MANAGER_GRPC_ENDPOINT_HERE"
+        //     dotnet user-secrets set "OrderManagerCatalystHttpEndpoint" "YOUR_CATALYST_ORDER_MANAGER_HTTP_ENDPOINT_HERE"
         //     dotnet user-secrets set "InventoryServiceCatalystApiToken" "YOUR_CATALYST_INVENTORY_SERVICE_API_TOKEN_HERE"
         //     dotnet user-secrets set "InventoryServiceCatalystGrpcEndpoint" "YOUR_CATALYST_INVENTORY_SERVICE_GRPC_ENDPOINT_HERE"
         //     dotnet user-secrets set "InventoryServiceCatalystHttpEndpoint" "YOUR_CATALYST_INVENTORY_SERVICE_HTTP_ENDPOINT_HERE"
 
-        var workerCatalystApiToken = builder.Configuration["WorkerCatalystApiToken"] ?? throw new("Missing worker catalyst API token!");
-        var workerCatalystGrpcEndpoint = builder.Configuration["WorkerCatalystGrpcEndpoint"] ?? throw new("Missing worker catalyst GRPC endpoint!");
-        var workerCatalystHttpEndpoint = builder.Configuration["WorkerCatalystHttpEndpoint"] ?? throw new("Missing worker catalyst HTTP endpoint!");
-        var inventoryServiceCatalystApiToken = builder.Configuration["InventoryServiceCatalystApiToken"] ?? throw new("Missing InventoryService catalyst API token!");
-        var inventoryServiceCatalystGrpcEndpoint = builder.Configuration["InventoryServiceCatalystGrpcEndpoint"] ?? throw new("Missing InventoryService catalyst GRPC endpoint!");
-        var inventoryServiceCatalystHttpEndpoint = builder.Configuration["InventoryServiceCatalystHttpEndpoint"] ?? throw new("Missing InventoryService catalyst HTTP endpoint!");
+        var orderManagerCatalystApiToken = builder.Configuration["OrderManagerCatalystApiToken"] ?? throw new("Missing order manager catalyst API token!");
+        var orderManagerCatalystGrpcEndpoint = builder.Configuration["OrderManagerCatalystGrpcEndpoint"] ?? throw new("Missing order manager catalyst GRPC endpoint!");
+        var orderManagerCatalystHttpEndpoint = builder.Configuration["OrderManagerCatalystHttpEndpoint"] ?? throw new("Missing order manager catalyst HTTP endpoint!");
+        var inventoryServiceCatalystApiToken = builder.Configuration["InventoryServiceCatalystApiToken"] ?? throw new("Missing Inventory Service catalyst API token!");
+        var inventoryServiceCatalystGrpcEndpoint = builder.Configuration["InventoryServiceCatalystGrpcEndpoint"] ?? throw new("Missing Inventory Service catalyst GRPC endpoint!");
+        var inventoryServiceCatalystHttpEndpoint = builder.Configuration["InventoryServiceCatalystHttpEndpoint"] ?? throw new("Missing Inventory Service catalyst HTTP endpoint!");
 
-        var workerCatalystApiTokenParameter = builder.AddParameter("catalyst-worker-api-token", workerCatalystApiToken, secret: true);
-        var workerCatalystGrpcEndpointParameter = builder.AddParameter("catalyst-worker-grpc-endpoint", workerCatalystGrpcEndpoint);
-        var workerCatalystHttpEndpointParameter = builder.AddParameter("catalyst-worker-http-endpoint", workerCatalystHttpEndpoint);
+        var orderManagerCatalystApiTokenParameter = builder.AddParameter("catalyst-order-manager-api-token", orderManagerCatalystApiToken, secret: true);
+        var orderManagerCatalystGrpcEndpointParameter = builder.AddParameter("catalyst-order-manager-grpc-endpoint", orderManagerCatalystGrpcEndpoint);
+        var orderManagerCatalystHttpEndpointParameter = builder.AddParameter("catalyst-order-manager-http-endpoint", orderManagerCatalystHttpEndpoint);
 
         // Instead of running a dapr sidecar, we provide credentials to connect to Catalyst as a sidecar.
-        worker
-            .WithEnvironment("APP_ID", "worker")
+        orderManager
+            .WithEnvironment("APP_ID", "order-manager")
             .WithEnvironment("APP_PORT", "8081")
-            .WithEnvironment("DAPR_API_TOKEN", workerCatalystApiTokenParameter)
-            .WithEnvironment("DAPR_GRPC_ENDPOINT", workerCatalystGrpcEndpointParameter)
-            .WithEnvironment("DAPR_HTTP_ENDPOINT", workerCatalystHttpEndpointParameter)
+            .WithEnvironment("DAPR_API_TOKEN", orderManagerCatalystApiTokenParameter)
+            .WithEnvironment("DAPR_GRPC_ENDPOINT", orderManagerCatalystGrpcEndpointParameter)
+            .WithEnvironment("DAPR_HTTP_ENDPOINT", orderManagerCatalystHttpEndpointParameter)
         ;
 
         builder
-            .AddExecutable("catalyst-worker-proxy",
+            .AddExecutable("catalyst-order-manager-proxy",
                 "diagrid",
                 ExecutingPath,
                 [
                     "dev", "run", "--approve",
                     "--project", "catalyst-order-workflow-local",
-                    "--app-id", "worker",
+                    "--app-id", "order-manager",
                     "--app-port", "8081",
                 ])
-            .WaitFor(worker)
-            .WithParentRelationship(worker)
+            .WaitFor(orderManager)
+            .WithParentRelationship(orderManager)
         ;
 
         var inventoryServiceCatalystApiTokenParameter = builder.AddParameter("catalyst-inventory-service-api-token", inventoryServiceCatalystApiToken, secret: true);

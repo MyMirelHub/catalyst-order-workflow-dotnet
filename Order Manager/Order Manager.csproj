@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <RootNamespace>Diagrid.Labs.Catalyst.OrderWorkflow.Worker</RootNamespace>
-        <AssemblyName>Diagrid.Labs.Catalyst.OrderWorkflow.Worker</AssemblyName>
-        <ContainerRepository>order-workflow-worker</ContainerRepository>
+        <RootNamespace>Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager</RootNamespace>
+        <AssemblyName>Diagrid.Labs.Catalyst.OrderWorkflow.OrderManager</AssemblyName>
+        <ContainerRepository>order-workflow-order-manager</ContainerRepository>
     </PropertyGroup>
 
     <ItemGroup>

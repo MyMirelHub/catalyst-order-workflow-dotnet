@@ -4,9 +4,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "AppHost\AppHost.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{40476E32-CC89-4E39-A226-4A7A411EC236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService", "InventoryService\InventoryService.csproj", "{6BADE627-77D4-483E-94EF-5D7F7D0BEA47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory Service", "Inventory Service\Inventory Service.csproj", "{6BADE627-77D4-483E-94EF-5D7F7D0BEA47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "Worker\Worker.csproj", "{55AA8E87-8115-49E6-91D1-BC470F18B13F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order Manager", "Order Manager\Order Manager.csproj", "{55AA8E87-8115-49E6-91D1-BC470F18B13F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development", "{888395D2-7186-47E0-A397-FC8B639B4DBA}"
 EndProject

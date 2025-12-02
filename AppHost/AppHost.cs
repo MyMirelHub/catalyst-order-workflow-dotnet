@@ -13,10 +13,10 @@ var useCatalyst = Environment.GetEnvironmentVariable("USE_CATALYST") switch
 
 builder.AddDapr();
 
-var worker = builder.AddProject<Worker>("worker");
+var orderManager = builder.AddProject<Order_Manager>("order-manager");
 var inventoryService = builder.AddProject<InventoryService>("inventory-service");
 
-if (useCatalyst) builder.ConfigureForCatalyst(worker, inventoryService);
-else builder.ConfigureForLocal(worker, inventoryService);
+if (useCatalyst) builder.ConfigureForCatalyst(orderManager, inventoryService);
+else builder.ConfigureForLocal(orderManager, inventoryService);
 
 builder.Build().Run();

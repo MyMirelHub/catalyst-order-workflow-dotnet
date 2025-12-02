@@ -1,18 +1,28 @@
 # Catalyst E-Commerce Demo
 
-This demo application showcases three main patterns (Workflows, Pub/Sub, and Service Invocation) using the Dapr APIs
-exposed through Diagrid Catalyst.
+![Architecture Diagram](/architecture.png)
 
-## Applications
+This demo application showcases workflows and local development using Dapr and the Diagrid Dashboard using a fictional
+e-commerce scenario.  The scenario consists of two microservices:
 
-1. **Order Management Service** (`order-management`) - Controller app that orchestrates order processing
-2. **Inventory Service** (`inventory-service`) - Worker app that manages inventory and processes notifications
+- **Order Management Service** (`order-management`) - A controller app that orchestrates order processing
+- **Inventory Service** (`inventory-service`) - A worker app that manages inventory and processes notifications
 
-## Features
+Under its default configuration the applications in this solution do not depend on any external services.
+
+The project features three main Dapr building blocks:
+
+ - Workflows
+ - Pub/Sub
+ - Service Invocation
+
+Workflow visibility is provided by the Diagrid Dashboard, a utility container created to enhance the Dapr developer
+experience.
 
 ### Technologies Used
 
  - [Dapr](https://dapr.io/)
+ - [Diagrid Dashboard](https://diagrid.io)
  - [Diagrid Catalyst](https://www.diagrid.io/catalyst)
  - [ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
    - [Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview)
