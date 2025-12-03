@@ -5,11 +5,11 @@
 This solution runs via a dotnet Aspire AppHost.  Aspire takes care of launching your application and any of its
 dependencies under a single run profile.
 
-Running Aspire projects is is familiar and can be done via CLI or within your favourite IDE.
+Running Aspire projects is familiar and can be done via CLI or within your favourite IDE.
 
-The AppHost project is configured with two run profiles in `launchSettings.json.
+The AppHost project is configured with two run profiles in `launchSettings.json`.
 
-- **Local** - `http-local` - Run everything locally on your workstation, using local Dapr instances for all Dapr functionality.
+- **Local** - `http-local` - Run everything on your workstation, using local Dapr instances for all Dapr functionality.
 - **Catalyst** - `http-local-catalyst` - Run the services locally on your workstation, connecting to Catalyst for all Dapr functionality.
 
 ### Prerequisites
