@@ -9,7 +9,7 @@ spec:
   version: v1
   metadata:
     - name: redisHost
-      value: "cache:6379"
+      value: "host.docker.internal:16379"
     - name: redisPassword
       value: "zxczxc123"
     - name: actorStateStore

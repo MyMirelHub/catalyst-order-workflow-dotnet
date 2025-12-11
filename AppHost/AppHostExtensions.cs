@@ -15,10 +15,10 @@ public static class AppHostExtensions
         // Configure a cache to hold our state and workflows.
         var cachePassword = builder.AddParameter("cache-password", "zxczxc123", secret: true);
         var cache = builder
-                .AddValkey("cache", 6379, cachePassword)
-                .WithContainerName("catalyst-order-workflow-cache")
-                .WithDataVolume("catalyst-order-workflow-cache-data")
-            ;
+            .AddValkey("cache", 16379, cachePassword)
+            .WithContainerName("catalyst-order-workflow-cache")
+            .WithDataVolume("catalyst-order-workflow-cache-data")
+        ;
 
         orderManager.WaitFor(cache);
         inventoryService.WaitFor(cache);
