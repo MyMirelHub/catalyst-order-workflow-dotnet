@@ -42,7 +42,7 @@ public static class AppHostExtensions
         });
 
         builder
-            .AddContainer("diagrid-dashboard", "public.ecr.aws/diagrid-dev/diagrid-dashboard:latest")
+            .AddContainer("diagrid-dashboard", "ghcr.io/diagridio/diagrid-dashboard:latest")
             .WithContainerName("catalyst-order-workflow-diagrid-dashboard")
             .WithBindMount(Path.Join(ExecutingPath, "Resources"), "/app/components")
             .WithEnvironment("COMPONENT_FILE", "/app/components/inventory-store-diagrid-dashboard.yaml")
