@@ -9,6 +9,13 @@
 		"ghcr.io/dotnet/aspire-devcontainer-feature/dotnetaspire:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/dapr/cli/dapr-cli:0": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-dotnettools.csdevkit"
+			]
+		}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
