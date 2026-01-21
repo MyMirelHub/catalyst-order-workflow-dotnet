@@ -1,6 +1,6 @@
 ## Run with Aspire
 
-![Running](/running.webp)
+![Running](/images/running.webp)
 
 This solution runs via a dotnet Aspire AppHost.  Aspire takes care of launching your application and any of its
 dependencies under a single run profile.
@@ -69,8 +69,10 @@ dotnet run --profile http-local-catalyst
 
 ## Run with the Dapr CLI
 
+You can also run the services locally using the Dapr CLI.
 
-Run the inventory service with the Dapr CLI using the following command:
+
+### Starting the Services
 
 ```
 dapr run --app-id inventory-service --app-port 8082 --dapr-http-port 6002 --resources-path ./components -- dotnet run --project InventoryService/InventoryService.csproj
@@ -79,4 +81,14 @@ dapr run --app-id inventory-service --app-port 8082 --dapr-http-port 6002 --reso
 Run the order manager workflow with the following command:
 ```
 dapr run --app-id order-manager --app-port 8081 --dapr-http-port 6003 --resources-path ./components -- dotnet run --project OrderManager/OrderManager.csproj
+```
+
+### Publishing Events
+
+Our sample application also features an endpoint for promotion events.
+
+We can use the Dapr CLI to publish events and then see them being handled by the inventory service.
+
+```
+dapr publish --publish-app-id order-manager --pubsub shop-activity --topic promotions --data '{ "promotionId": "2112", "promotionType": "flash-sale", "message": "Don'\''t tell anyone, but we'\''re having a sale.", "targetAudience": "Couches that turn into bed enthusiasts." }'
 ```
