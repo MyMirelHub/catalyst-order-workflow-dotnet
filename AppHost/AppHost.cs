@@ -11,8 +11,6 @@ var useCatalyst = Environment.GetEnvironmentVariable("USE_CATALYST") switch
     _ => false,
 };
 
-builder.AddDapr();
-
 var orderManager = builder.AddProject<OrderManager>("order-manager");
 var inventoryService = builder.AddProject<InventoryService>("inventory-service");
 var notificationService = builder.AddProject<NotificationService>("notification-service");
