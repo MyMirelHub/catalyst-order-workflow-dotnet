@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalyst-env
+  namespace: catalyst-order-workflow-demo
+data:
+  ASPNETCORE_URLS: "http://+:8080"
+  DAPR_HTTP_ENDPOINT: "https://http-prj576129.cloud.r1.diagrid.io:443"
+  DAPR_GRPC_ENDPOINT: "https://grpc-prj576129.cloud.r1.diagrid.io:443"

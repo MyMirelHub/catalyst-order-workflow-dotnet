@@ -75,6 +75,22 @@ The services in this project use [a set of well-known environment variables for 
 - `DAPR_GRPC_ENDPOINT` - Dapr gRPC endpoint
 - `DAPR_HTTP_ENDPOINT` - Dapr HTTP endpoint
 
+### Kubernetes secret for Catalyst tokens
+
+Create a secret with the Catalyst API token before applying the manifests:
+
+```bash
+kubectl create secret generic catalyst-app-tokens \
+  -n catalyst-order-workflow-demo \
+  --from-literal=catalyst-api-token="$CATALYST_API_KEY"
+```
+
+If you need to update the token later, delete and recreate the secret:
+
+```bash
+kubectl delete secret catalyst-app-tokens -n catalyst-order-workflow-demo
+```
+
 ### Order Management Service Endpoints
 
 - `POST /order` - Start an order processing workflow

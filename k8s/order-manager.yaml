@@ -14,10 +14,6 @@ spec:
     metadata:
       labels:
         app: order-manager
-      annotations:
-        dapr.io/enabled: "true"
-        dapr.io/app-id: "order-manager"
-        dapr.io/app-port: "8080"
     spec:
       containers:
         - name: order-manager
@@ -26,8 +22,14 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: ASPNETCORE_URLS
-              value: "http://+:8080"
+            - name: DAPR_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: catalyst-app-tokens
+                  key: catalyst-api-token
+          envFrom:
+            - configMapRef:
+                name: catalyst-env
           livenessProbe:
             httpGet:
               path: /healthz
