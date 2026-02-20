@@ -17,16 +17,58 @@ resource "catalyst_project" "order_workflow" {
 resource "catalyst_appid" "inventory_service" {
   project_id = catalyst_project.order_workflow.name
   name       = "inventory-service"
+  protocol   = "http"
+
+  app_endpoint = {
+    url                    = "http://demo-production-catalyst.westeurope.cloudapp.azure.com:8080/inventory-service"
+    client_timeout_seconds = 30
+  }
+
+  health_check = {
+    enabled           = true
+    path              = "/healthz"
+    interval_seconds  = 5
+    timeout_ms        = 500
+    failure_threshold = 3
+  }
 }
 
 resource "catalyst_appid" "notification_service" {
   project_id = catalyst_project.order_workflow.name
   name       = "notification-service"
+  protocol   = "http"
+
+  app_endpoint = {
+    url                    = "http://demo-production-catalyst.westeurope.cloudapp.azure.com:8080/notification-service"
+    client_timeout_seconds = 30
+  }
+
+  health_check = {
+    enabled           = true
+    path              = "/healthz"
+    interval_seconds  = 5
+    timeout_ms        = 500
+    failure_threshold = 3
+  }
 }
 
 resource "catalyst_appid" "order_manager" {
   project_id = catalyst_project.order_workflow.name
   name       = "order-manager"
+  protocol   = "http"
+
+  app_endpoint = {
+    url                    = "http://demo-production-catalyst.westeurope.cloudapp.azure.com:8080/order-manager"
+    client_timeout_seconds = 30
+  }
+
+  health_check = {
+    enabled           = true
+    path              = "/healthz"
+    interval_seconds  = 5
+    timeout_ms        = 500
+    failure_threshold = 3
+  }
 }
 
 resource "catalyst_pubsub" "shop_activity" {
