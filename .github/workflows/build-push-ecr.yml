@@ -58,5 +58,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/catalyst-demo/${{ matrix.service.name }}:${{ env.IMAGE_VERSION }}
-            ${{ env.REGISTRY }}/catalyst-demo/${{ matrix.service.name }}:latest
+            ${{ env.REGISTRY }}/catalyst-demo:${{ matrix.service.name }}-${{ env.IMAGE_VERSION }}
+            ${{ env.REGISTRY }}/catalyst-demo:${{ matrix.service.name }}-latest
