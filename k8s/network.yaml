@@ -89,6 +89,7 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerSourceRanges:
+    - 168.63.129.16/32
     - 54.155.61.100/32
     - 10.224.0.6/32
   selector:
