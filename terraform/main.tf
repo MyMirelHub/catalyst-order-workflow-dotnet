@@ -83,7 +83,7 @@ resource "catalyst_subscription" "order_notifications" {
   name         = "order-notifications"
   pubsub_name  = catalyst_pubsub.shop_activity.name
   topic        = "orders"
-  scopes       = [catalyst_appid.inventory_service.name]
+  scopes       = [catalyst_appid.notification_service.name]
   spec = {
     routes = {
       default = "/order-notification"
